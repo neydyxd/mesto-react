@@ -1,9 +1,12 @@
 import close from "../images/close.png"
+import { useEffect } from 'react';
 function PopupWithForm(props){
+    
+
     const popupClass = `popup  popup_type_${props.name} ${props.isOpen ? 'popup_opened' : ''}`;
     return(
         <>
-        <div className={popupClass} >
+        <div className={popupClass} onClick={()=>props.onClose(false)} >
             <div className="popup__container">
                 <button onClick={props.onClose} className="popup__close" type="button"> <img className="popup__close-image" src={close} alt="кнопка закрытия формы" /></button>
                 <form name="{props.name}" className={`popup__form popup__form_${props.name}`} noValidate>
