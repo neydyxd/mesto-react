@@ -22,11 +22,14 @@ class Api {
       }).then(this._getJson);
     }
   
-    createNewCard(item) {
+    createNewCard({ item }) {
       return fetch(`${this._basePath}/cards`, {
         method: "POST",
         headers: this._getHeaders(),
-        body: JSON.stringify(item),
+        body: JSON.stringify({
+                link: item.link,
+                name: item.name
+        }),
       }).then(this._getJson);
     }
   
@@ -41,12 +44,12 @@ class Api {
         headers: this._getHeaders(),
       }).then(this._getJson);
     }
-    createNewAvatar(data) {
+    createNewAvatar(link) {
       return fetch(`${this._basePath}/users/me/avatar`, {
         method: "PATCH",
         headers: this._getHeaders(),
         body: JSON.stringify({
-          avatar: data.link,
+          avatar: link,
         }),
       }).then(this._getJson);
     }
@@ -55,28 +58,33 @@ class Api {
         return Promise.all([this.getCards(), this.getCurrentUser()]);
     }
 
-    createNewProfile(data) {
+    createNewProfile(name, job) {
       return fetch(`${this._basePath}/users/me`, {
         method: "PATCH",
         headers: this._getHeaders(),
         body: JSON.stringify({
-          name: data.name,
-          about: data.job,
+          name: name,
+          about: job,
         }),
       }).then(this._getJson);
     }
-    putLike(id) {
+    _likeCard(id) {
       return fetch(`${this._basePath}/cards/${id}/likes`, {
-        method: "PUT",
-        headers: this._getHeaders(),
-      }).then(this._getJson);
-    }
-    deleteLike(id) {
+          method: "PUT",
+          headers: this._getHeaders(),
+      });
+  }
+
+  _deleteLike(id) {
       return fetch(`${this._basePath}/cards/${id}/likes`, {
-        method: "DELETE",
-        headers: this._getHeaders(),
-      }).then(this._getJson);
-    }
+          method: "DELETE",
+          headers: this._getHeaders(),
+      });
+  }
+
+  changeLikeCardStatus(id, isLiked) {
+      return isLiked ? this._deleteLike(id) : this._likeCard(id)
+  }
   }
 
   const api = new Api('https://mesto.nomoreparties.co/v1/cohort-61',

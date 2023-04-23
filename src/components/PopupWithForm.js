@@ -1,18 +1,18 @@
 import close from "../images/close.png"
 import { useEffect } from 'react';
-function PopupWithForm(props){
+function PopupWithForm({name, title, button, isOpen, children, onSubmit, onClose}){
     
 
-    const popupClass = `popup  popup_type_${props.name} ${props.isOpen ? 'popup_opened' : ''}`;
+    const popupClass = `popup  popup_type_${name} ${isOpen ? 'popup_opened' : ''}`;
     return(
         <>
-        <div className={popupClass} onClick={()=>props.onClose(false)} >
-            <div className="popup__container">
-                <button onClick={props.onClose} className="popup__close" type="button"> <img className="popup__close-image" src={close} alt="кнопка закрытия формы" /></button>
-                <form name="{props.name}" className={`popup__form popup__form_${props.name}`} noValidate>
-                    <h2 className="popup__title">{props.title}</h2>
-                    {props.children}
-                    <button className="popup__save popup__save_edit" type="submit">{props.button}</button>
+        <div className={popupClass}  >
+            <div className="popup__container" onClick={(evt) => evt.stopPropagation()}>
+                <button onClick={onClose} className="popup__close" type="button"> <img className="popup__close-image" src={close} alt="кнопка закрытия формы" /></button>
+                <form name="{name}" className={`popup__form popup__form_${name}`} noValidate>
+                    <h2 className="popup__title">{title}</h2>
+                    {children}
+                    <button onClick={onSubmit} className="popup__save popup__save_edit" type="submit">{button}</button>
                 </form>
             </div>
         </div>
