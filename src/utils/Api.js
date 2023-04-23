@@ -72,14 +72,16 @@ class Api {
       return fetch(`${this._basePath}/cards/${id}/likes`, {
           method: "PUT",
           headers: this._getHeaders(),
-      });
+      })
+      .then(this._getJson);
   }
 
   _deleteLike(id) {
       return fetch(`${this._basePath}/cards/${id}/likes`, {
           method: "DELETE",
           headers: this._getHeaders(),
-      });
+      })
+      .then(this._getJson);
   }
 
   changeLikeCardStatus(id, isLiked) {

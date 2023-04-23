@@ -33,8 +33,9 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
       onClose={onClose}
       onSubmit={handleSubmit}
       button="Создать"
+      name='add'
     >
-      <input id="popup__poster" value={name} onChange={handleNameChange} className="popup__input popup__input_title" name="name"  placeholder="Название" type="text"  minLength="2" maxLength="30" required />
+      <input id="popup__poster" value={name} onChange={handleNameChange} className="popup__input popup__input_title" name="add"  placeholder="Название" type="text"  minLength="2" maxLength="30" required />
           <span className="popup__input-error popup__poster-error"></span>
           <input id="popup__url" value={link} onChange={handleLinkChange} className="popup__input popup__input_link" type="url" name="link" placeholder="Ссылка на картинку" required />
           <span className="popup__input-error popup__url-error"></span>
